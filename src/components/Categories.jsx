@@ -15,7 +15,7 @@ function Categories({ items }) {
         >
           Все
         </li>
-        {items.map((item, index) => {
+        {items && items.map((item, index) => {
           return (
             <li
               onClick={() => onSelectItem(index)}

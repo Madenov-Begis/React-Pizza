@@ -1,14 +1,34 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
-function SortPopup() {
-    const [visiblePopup, setVisiblePopup] = useState(false)
+function SortPopup({ items }) {
 
-    function toggleVisiblePopup() {
-        setVisiblePopup(!visiblePopup)
+  const [visiblePopup, setVisiblePopup] = useState(false)
+  const [activeItem, setActiveItem] = useState(0)
+  const sortRef = useRef(null)
+  console.log(activeItem);
+  const activeName = items[activeItem]
+
+
+  const onSelectItem = (index) => {
+    setActiveItem(index)
+  }
+
+  function toggleVisiblePopup() {
+    setVisiblePopup(!visiblePopup)
+  }
+
+  function handleClickOutside(e) {
+    if (!(e.srcElement.offsetParent === sortRef.current)) {
+      setVisiblePopup(false)
     }
+  }
+
+  useEffect(() => {
+    document.body.addEventListener('click', handleClickOutside)
+  }, [])
 
   return (
-    <div className="sort">
+    <div ref={sortRef} className="sort">
       <div className="sort__label">
         <svg
           width="10"
@@ -23,17 +43,25 @@ function SortPopup() {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={toggleVisiblePopup}>популярности</span>
+        <span onClick={toggleVisiblePopup}>{activeName}</span>
       </div>
-      {
-        visiblePopup && <div className="sort__popup">
-        <ul>
-          <li className="active">популярности</li>
-          <li>цене</li>
-          <li>алфавиту</li>
-        </ul>
-      </div>
-      }
+      {visiblePopup && (
+        <div className="sort__popup">
+          <ul>
+            {items && items.map((item, index) => {
+              return (
+                <li
+                  onClick={() => onSelectItem(index)}
+                  className={activeItem === index ? 'active' : ''}
+                  key={`${item}_${index}`}
+                >
+                  {item}
+                </li>
+              )
+            })}
+          </ul>
+        </div>
+      )}
     </div>
   )
 }

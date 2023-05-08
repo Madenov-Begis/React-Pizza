@@ -1,13 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 
 function SortPopup({ items }) {
-
   const [visiblePopup, setVisiblePopup] = useState(false)
   const [activeItem, setActiveItem] = useState(0)
   const sortRef = useRef(null)
-  console.log(activeItem);
   const activeName = items[activeItem]
-
 
   const onSelectItem = (index) => {
     setActiveItem(index)
@@ -31,6 +28,7 @@ function SortPopup({ items }) {
     <div ref={sortRef} className="sort">
       <div className="sort__label">
         <svg
+          className={visiblePopup ? 'rotated' : ''}
           width="10"
           height="6"
           viewBox="0 0 10 6"
@@ -48,17 +46,18 @@ function SortPopup({ items }) {
       {visiblePopup && (
         <div className="sort__popup">
           <ul>
-            {items && items.map((item, index) => {
-              return (
-                <li
-                  onClick={() => onSelectItem(index)}
-                  className={activeItem === index ? 'active' : ''}
-                  key={`${item}_${index}`}
-                >
-                  {item}
-                </li>
-              )
-            })}
+            {items &&
+              items.map((item, index) => {
+                return (
+                  <li
+                    onClick={() => onSelectItem(index)}
+                    className={activeItem === index ? 'active' : ''}
+                    key={`${item}_${index}`}
+                  >
+                    {item}
+                  </li>
+                )
+              })}
           </ul>
         </div>
       )}

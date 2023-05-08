@@ -27,7 +27,13 @@ body {
   &__items {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    // justify-content: space-between;
+    .pizza-block{
+      flex-basis: 22.9%;
+      img{
+        width: 100%;
+      }
+    }
   }
 
   &__top {

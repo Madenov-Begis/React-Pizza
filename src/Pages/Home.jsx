@@ -15,7 +15,7 @@ function Home({ items }) {
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
         {items.map((item) => (
-          <PizzaCard {...items} />
+          <PizzaCard {...item} key={item.id}/>
         ))}
       </div>
     </div>

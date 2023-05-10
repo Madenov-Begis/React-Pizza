@@ -1,14 +1,17 @@
 import React, { useState } from 'react'
 import classNames from 'classnames'
 
-function PizzaCard({ imageUrl, name, type, sizes, price}) {
-//    const [activeSize, setActiveSize] = useState(0)
+function PizzaCard({ imageUrl, name, types, sizes, price, id }) {
+  const [activeSize, setActiveSize] = useState(0)
   const [activeType, setActiveType] = useState(0)
   const typeName = ['тонкое', 'традиционное']
+  const sizeName = [26, 30, 40]
 
   const onSelectActive = (i) => {
-    // setActiveSize(i)
     setActiveType(i)
+  }
+  const onSelectSize = (i) => {
+    setActiveSize(i)
   }
 
   return (
@@ -24,29 +27,32 @@ function PizzaCard({ imageUrl, name, type, sizes, price}) {
               <li
                 onClick={() => onSelectActive(i)}
                 className={classNames({
-                    active : activeType === i,
-                    // disabled : type.includes(i)
+                  active: activeType === i,
+                  disabled: !types.includes(i)
                 })}
-                key={name}
+                key={i}
               >
                 {tip}
               </li>
             )
           })}
         </ul>
-        {/* <ul>
-          {sizes.map((size, i) => {
+        <ul>
+          {sizeName.map((size, i) => {
             return (
               <li
-                onClick={() => onSelectActive(i)}
-                className={activeSize === i ? 'active' : ''}
+                onClick={() => onSelectSize(i)}
+                className={classNames({
+                  active: activeSize === i,
+                  disabled: !sizes.includes(size)
+                })}
                 key={i}
               >
                 {size}
               </li>
             )
           })}
-        </ul> */}
+        </ul>
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">от {price} ₽</div>

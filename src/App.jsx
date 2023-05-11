@@ -2,7 +2,6 @@ import Header from './components/Header'
 import Home from './Pages/Home'
 import Cart from './Pages/Cart'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import './App.css'
 import { useEffect, useState } from 'react'
 
 function App() {

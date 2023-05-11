@@ -3,7 +3,8 @@ import classNames from 'classnames'
 
 function PizzaCard({ imageUrl, name, types, sizes, price, id }) {
   const [activeSize, setActiveSize] = useState(0)
-  const [activeType, setActiveType] = useState(0)
+  const [activeType, setActiveType] = useState(types[0])
+  const [pizzaCount, setPizzaCount] = useState(0)
   const typeName = ['тонкое', 'традиционное']
   const sizeName = [26, 30, 40]
 
@@ -12,6 +13,10 @@ function PizzaCard({ imageUrl, name, types, sizes, price, id }) {
   }
   const onSelectSize = (i) => {
     setActiveSize(i)
+  }
+
+  const onPizzaCount = () => {
+    setPizzaCount(() => pizzaCount+1)
   }
 
   return (
@@ -56,7 +61,7 @@ function PizzaCard({ imageUrl, name, types, sizes, price, id }) {
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">от {price} ₽</div>
-        <div className="button button--outline button--add">
+        <button onClick={() => onPizzaCount()} className="button button--outline button--add">
           <svg
             width="12"
             height="12"
@@ -70,8 +75,8 @@ function PizzaCard({ imageUrl, name, types, sizes, price, id }) {
             />
           </svg>
           <span>Добавить</span>
-          <i>2</i>
-        </div>
+          <i>{pizzaCount}</i>
+        </button>
       </div>
     </div>
   )

@@ -3,29 +3,23 @@ import React, { useEffect, useRef, useState } from 'react'
 function SortPopup({ items }) {
   const [visiblePopup, setVisiblePopup] = useState(false)
   const [activeItem, setActiveItem] = useState(0)
-  const sortRef = useRef(null)
   const activeName = items[activeItem]
 
   const onSelectItem = (index) => {
     setActiveItem(index)
+    setVisiblePopup(false)
   }
 
   function toggleVisiblePopup() {
     setVisiblePopup(!visiblePopup)
   }
 
-  function handleClickOutside(e) {
-    if (!(e.srcElement.offsetParent === sortRef.current)) {
-      setVisiblePopup(false)
-    }
-  }
-
   useEffect(() => {
-    document.body.addEventListener('click', handleClickOutside)
+    document.body.addEventListener('click', setVisiblePopup(false))
   }, [])
 
   return (
-    <div ref={sortRef} className="sort">
+    <div className="sort">
       <div className="sort__label">
         <svg
           className={visiblePopup ? 'rotated' : ''}

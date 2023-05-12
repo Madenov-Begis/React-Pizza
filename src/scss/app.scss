@@ -25,20 +25,25 @@ body {
   }
 
   &__items {
-    display: flex;
-    flex-wrap: wrap;
-    // justify-content: space-between;
-    .pizza-block{
-      flex-basis: 22.9%;
-      img{
-        width: 100%;
-      }
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    @media screen and (max-width: 1400px){
+      grid-template-columns: repeat(3, auto);
+
+    }
+    @media screen and (max-width: 950px){
+      grid-template-columns: repeat(2, auto);
+    }
+    @media screen and (max-width: 730px){
+      grid-template-columns: repeat(1, auto);
     }
   }
 
   &__top {
     display: flex;
     align-items: center;
+    flex-wrap:wrap ;
     justify-content: space-between;
   }
 }

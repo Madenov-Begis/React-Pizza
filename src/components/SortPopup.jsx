@@ -1,12 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-function SortPopup({ items }) {
+function SortPopup({ items, sortBy, value }) {
   const [visiblePopup, setVisiblePopup] = useState(false)
-  const [activeItem, setActiveItem] = useState(0)
-  const activeName = items[activeItem]
+  const activeName = items[value]
 
-  const onSelectItem = (index) => {
-    setActiveItem(index)
+  const onSelectItem = (i) => {   
+    sortBy(i) 
     setVisiblePopup(false)
   }
 
@@ -17,6 +16,8 @@ function SortPopup({ items }) {
   useEffect(() => {
     document.body.addEventListener('click', setVisiblePopup(false))
   }, [])
+
+
 
   return (
     <div className="sort">
@@ -45,7 +46,7 @@ function SortPopup({ items }) {
                 return (
                   <li
                     onClick={() => onSelectItem(index)}
-                    className={activeItem === index ? 'active' : ''}
+                    className={ value === index ? 'active' : ''}
                     key={`${item}_${index}`}
                   >
                     {item}

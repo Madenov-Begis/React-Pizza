@@ -1,17 +1,16 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-function Categories({ items }) {
-  const [activeItem, setActiveItem] = useState(null)
+function Categories({ items, value, filterBy }) {
 
   const onSelectItem = (index) => {
-    setActiveItem(index)
+    filterBy(index)
   }
   return (
     <div className="categories">
       <ul>
         <li
           onClick={() => onSelectItem(null)}
-          className={activeItem === null ? 'active' : ''}
+          className={value === null ? 'active' : ''}
         >
           Все
         </li>
@@ -19,7 +18,7 @@ function Categories({ items }) {
           return (
             <li
               onClick={() => onSelectItem(index)}
-              className={activeItem === index ? 'active' : ''}
+              className={value === index ? 'active' : ''}
               key={`${item}_${index}`}
             >
               {item}

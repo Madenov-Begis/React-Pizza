@@ -7,14 +7,15 @@ import PizzaSkeleton from '../skeleton/PizzaSkeleton'
 function Home() {
   const [pizza, setPizza] = useState([])
   const [isLoading, setIsLoading] = useState(true)
-  const [activeCat, setActivCat] = useState(null)
-  const [activeSort, setActivSort] = useState(0)
-  
-console.log(activeCat);
- console.log(activeSort);
+  const [activeCat, setActivCat] = useState(0)
+  const [activeSort, setActivSort] = useState({
+    name: 'попклярности', sortID: "rating"
+  })
+ 
+ 
 
   async function getPizza() {
-    await fetch('https://645cdff7250a246ae310e149.mockapi.io/pizzas?')
+    await fetch((activeCat === 0) ? `https://645cdff7250a246ae310e149.mockapi.io/pizzas?sortBy=${activeSort.sortID}` : `https://645cdff7250a246ae310e149.mockapi.io/pizzas?category=${activeCat}&sortBy=${activeSort.sortID}`)
       .then((res) => res.json())
       .then((data) => {
         setPizza(data)
@@ -25,19 +26,19 @@ console.log(activeCat);
 
   useEffect(() => {
     getPizza()
-  }, [])
+  }, [activeCat,activeSort])
 
   return (
     <>
       <div className="content__top">
         <Categories
-          items={['Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые']}
+          items={['Все','Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые']}
           value={activeCat}
           filterBy={(i) => setActivCat(i)}
         />
         <SortPopup 
-          items={['популярности', 'цене', 'алфавиту']} 
-          sortBy={(i) => setActivSort(i)}
+          items={[{name: 'попклярности', sortID: "rating"}, {name: 'цене', sortID: "price"}, {name: 'алфавиту', sortID: "title"}]} 
+          sortBy={(item) => setActivSort(item)}
           value={activeSort}
         />
       </div>

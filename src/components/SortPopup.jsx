@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react'
 
-function SortPopup({ items, sortBy, value }) {
+function SortPopup({ items, sortBy, value, }) {
   const [visiblePopup, setVisiblePopup] = useState(false)
-  const activeName = items[value]
-
-  const onSelectItem = (i) => {   
-    sortBy(i) 
+  const onSelectItem = (item, ) => {  
+    sortBy(item) 
     setVisiblePopup(false)
   }
 
@@ -36,7 +34,7 @@ function SortPopup({ items, sortBy, value }) {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={toggleVisiblePopup}>{activeName}</span>
+        <span onClick={toggleVisiblePopup}>{value.name}</span>
       </div>
       {visiblePopup && (
         <div className="sort__popup">
@@ -45,11 +43,11 @@ function SortPopup({ items, sortBy, value }) {
               items.map((item, index) => {
                 return (
                   <li
-                    onClick={() => onSelectItem(index)}
-                    className={ value === index ? 'active' : ''}
+                    onClick={() => onSelectItem(item)}
+                    className={ value.sortId === item.sortId ? 'active' : ''}
                     key={`${item}_${index}`}
                   >
-                    {item}
+                    {item.name}
                   </li>
                 )
               })}

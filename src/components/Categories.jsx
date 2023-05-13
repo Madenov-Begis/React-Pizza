@@ -8,12 +8,6 @@ function Categories({ items, value, filterBy }) {
   return (
     <div className="categories">
       <ul>
-        <li
-          onClick={() => onSelectItem(null)}
-          className={value === null ? 'active' : ''}
-        >
-          Все
-        </li>
         {items && items.map((item, index) => {
           return (
             <li

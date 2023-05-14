@@ -15,8 +15,6 @@ function SortPopup({ items, sortBy, value, }) {
     document.body.addEventListener('click', setVisiblePopup(false))
   }, [])
 
-
-
   return (
     <div className="sort">
       <div className="sort__label">
@@ -44,7 +42,7 @@ function SortPopup({ items, sortBy, value, }) {
                 return (
                   <li
                     onClick={() => onSelectItem(item)}
-                    className={ value.sortId === item.sortId ? 'active' : ''}
+                    className={ value.sortID === itemz.sortID ? 'active' : ''}
                     key={`${item}_${index}`}
                   >
                     {item.name}
